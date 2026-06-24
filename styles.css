@@ -590,3 +590,16 @@ a { color: inherit; text-decoration: none; }
     background: transparent !important; 
     border: none !important; 
 }
+
+/* === Logo === */
+.nav-logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+.quiz-logo-img {
+    height: 70px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
