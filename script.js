@@ -67,9 +67,9 @@ function initNavbar() {
 
 // === Quiz ===
 function initQuiz() {
-    const startBtn = document.getElementById('startQuiz');
-    const intro = document.getElementById('quizIntro');
     const container = document.getElementById('quizContainer');
+    if (!container) return; // Not on the quiz page
+
     const result = document.getElementById('quizResult');
     const bar = document.getElementById('progressBar');
     const curQ = document.getElementById('currentQ');
@@ -80,24 +80,8 @@ function initQuiz() {
     let current = 0;
     let points = 0;
 
-    totQ.textContent = total;
-
-    startBtn.addEventListener('click', () => {
-        intro.style.opacity = '0';
-        intro.style.transition = 'opacity 0.4s ease';
-        setTimeout(() => {
-            intro.style.display = 'none';
-            container.style.display = 'block';
-            container.style.opacity = '0';
-            requestAnimationFrame(() => {
-                container.style.transition = 'opacity 0.4s ease';
-                container.style.opacity = '1';
-            });
-            updateBar();
-            // Scroll to quiz
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 400);
-    });
+    if (totQ) totQ.textContent = total;
+    updateBar();
 
     document.querySelectorAll('.opt').forEach(opt => {
         opt.addEventListener('click', function () {
