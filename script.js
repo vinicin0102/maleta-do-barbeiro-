@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
     initQuiz();
     handleBrokenImages();
+    initVSL();
 });
 
 // === Handle images that fail to load ===
@@ -157,3 +158,20 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
+
+// === VSL Timer ===
+function initVSL() {
+    const vslVideo = document.getElementById('vslVideo');
+    const resultCta = document.getElementById('resultCta');
+    const urgencyText = document.getElementById('urgencyText');
+
+    if (vslVideo && resultCta) {
+        vslVideo.addEventListener('timeupdate', () => {
+            // Show CTA at 2 minutes 26 seconds (146 seconds)
+            if (vslVideo.currentTime >= 146) {
+                resultCta.style.display = 'inline-flex';
+                if (urgencyText) urgencyText.style.display = 'block';
+            }
+        });
+    }
+}
