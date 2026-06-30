@@ -22,6 +22,9 @@ try {
                 ".html" { "text/html; charset=utf-8" }
                 ".css" { "text/css; charset=utf-8" }
                 ".js" { "application/javascript; charset=utf-8" }
+                ".mp4" { "video/mp4" }
+                ".jpeg" { "image/jpeg" }
+                ".png" { "image/png" }
                 default { "application/octet-stream" }
             }
             
