@@ -159,19 +159,34 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     });
 });
 
-// === VSL Timer ===
+// === VSL Timer (Panda Video API) ===
 function initVSL() {
-    const vslVideo = document.getElementById('vslVideo');
     const resultCta = document.getElementById('resultCta');
     const urgencyText = document.getElementById('urgencyText');
+    const iframeId = 'panda-cebebf27-1060-4c69-971b-37e2cdf428cf';
 
-    if (vslVideo && resultCta) {
-        vslVideo.addEventListener('timeupdate', () => {
-            // Show CTA at 2 minutes 26 seconds (146 seconds)
-            if (vslVideo.currentTime >= 146) {
-                resultCta.style.display = 'inline-flex';
-                if (urgencyText) urgencyText.style.display = 'block';
+    if (!document.getElementById(iframeId)) return;
+
+    // Load Panda API
+    const script = document.createElement('script');
+    script.src = "https://player.pandavideo.com.br/api.v2.js";
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.pandascripttag = window.pandascripttag || [];
+    window.pandascripttag.push(function () {
+        const player = new PandaPlayer(iframeId, {
+            onReady: () => {
+                player.onEvent(e => {
+                    if (e.message === 'panda_timeupdate') {
+                        const currentTime = e.currentTime || e.time || 0;
+                        if (currentTime >= 146) {
+                            if (resultCta) resultCta.style.display = 'inline-flex';
+                            if (urgencyText) urgencyText.style.display = 'block';
+                        }
+                    }
+                });
             }
         });
-    }
+    });
 }
